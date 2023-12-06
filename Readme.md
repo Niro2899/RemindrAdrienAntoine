@@ -1,25 +1,26 @@
 # Application web: "Remindr"
+https://abstracted-uranium-5b4.notion.site/NodeJS-project-5ad0f19bf1594337a05fb641dbc5308b
 
-## Modèle
+## Modï¿½le
 Nous faisons uniquement le DAL car nous utilsons Prisma.Js
 
-Servira à faire les requêtes à la base de données
-Ce sera une collection de fonctions qui seront appelées par le contrôleur
+Servira ï¿½ faire les requï¿½tes ï¿½ la base de donnï¿½es
+Ce sera une collection de fonctions qui seront appelï¿½es par le contrï¿½leur
 
 ## Vue (/Templates/)
 Templates avec Handlebars
-Classe "Render" qui sera appelée par le contrôleur
+Classe "Render" qui sera appelï¿½e par le contrï¿½leur
 
 ## Routeurs (/Routers/)
 Routeurs avec Express
 
-## Contrôleur (/Controllers/)
+## Contrï¿½leur (/Controllers/)
 Fonction finale des routeurs avec Express
 
 ## Middlewares (/Middlewares/)
-Vérification des données, authentification, etc.
-Les middlewares sont indépendantes du modèle, de la vue et du contrôleur
-Elles sont appelées par le contrôleur
+Vï¿½rification des donnï¿½es, authentification, etc.
+Les middlewares sont indï¿½pendantes du modï¿½le, de la vue et du contrï¿½leur
+Elles sont appelï¿½es par le contrï¿½leur
 
 ## Utils (/Utils/)
 Fonctions/classes utilitaires
