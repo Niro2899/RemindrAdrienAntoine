@@ -8,11 +8,35 @@ datasource db {
 }
 
 model users {
-  idUser           Int      @id @default(autoincrement())
-  nameUser         String   @db.VarChar(50)
-  firstnameUser    String   @db.VarChar(50)
-  pseudoUser       String   @db.VarChar(50)
-  mailUser         String   @db.VarChar(50)
-  passwdUser       String   @db.VarChar(50)
-  CreationDateUser DateTime @default(now()) @db.Timestamp(0)
+  idUser           Int          @id @default(autoincrement())
+  nameUser         String       @db.VarChar(50)
+  firstnameUser    String       @db.VarChar(50)
+  pseudoUser       String       @db.VarChar(50)
+  mailUser         String       @db.VarChar(50)
+  passwdUser       String       @db.VarChar(50)
+  CreationDateUser DateTime     @default(now()) @db.Timestamp(0)
+  appartenir       appartenir[] @ignore
+  groupes          groupes[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model appartenir {
+  idUser   Int
+  idGroupe Int
+  groupes  groupes @relation(fields: [idGroupe], references: [idGroupe], onDelete: NoAction, onUpdate: NoAction, map: "FK_idgroupe")
+  users    users   @relation(fields: [idUser], references: [idUser], onDelete: NoAction, onUpdate: NoAction, map: "FK_iduser")
+
+  @@index([idGroupe], map: "FK_idgroupe")
+  @@index([idUser], map: "FK_iduser")
+  @@ignore
+}
+
+model groupes {
+  idGroupe   Int          @id
+  nameGroupe String       @db.VarChar(50)
+  idCreator  Int
+  appartenir appartenir[] @ignore
+  users      users        @relation(fields: [idCreator], references: [idUser], onDelete: NoAction, onUpdate: NoAction, map: "FK_idCreator")
+
+  @@index([idCreator], map: "FK_idCreator")
 }
