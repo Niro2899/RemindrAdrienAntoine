@@ -8,7 +8,8 @@ rtrUsers.get('/', userController.index);
 rtrUsers.get('/create', userController.showLogin);
 rtrUsers.post('/create', userController.create);
 
-rtrUsers.get('/dashboard', userController.showDashboard);
+rtrUsers.get('/dashboardUsers', userController.showDashboard);
+rtrUsers.get('/connexion', userController.showConnexion);
 
 module.exports = { rtrUsers };
 

@@ -1,18 +1,50 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=*, initial-scale=1.0">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+      <title>formulaire_inscription</title>
+  </head>
 
-<div>
-    <h2>Rappels :</h2>
-    <!-- Pour chaque rappel 2 boutons modifier et supprimer -->
-    <!-- Les rappels doivent être dans l'odre chronologique -->
-    <!-- Les rappels dépassés doivent être affiché différemment -->
+    <body>
 
-    
+        <div>
+            <h2>Rappels :</h2>
 
+            <!-- Loop through reminders in chronological order -->
+            {{#each reminders}}
+            <div class="{{#if isPastReminder}}past-reminder{{/if}}">
+                <p>{{reminderText}}</p>
+                <button onclick="editReminder({{reminderId}})">Modifier</button>
+                <button onclick="deleteReminder({{reminderId}})">Supprimer</button>
+            </div>
+            {{/each}}
+        </div>
 
+        <div>
+            <h2>Vos groupes :</h2>
 
-</div>
+            <!-- Loop through user groups -->
+            {{#each userGroups}}
+            <div>
+                <p>{{groupName}}</p>
+            </div>
+            {{/each}}
+        </div>
 
+        <script>
+            // Add your JavaScript functions for editing and deleting reminders here
+            function editReminder(reminderId) {
+            // Implement your logic
+            }
 
-<div>
-    <h2>Vos groupes :</h2>
+            function deleteReminder(reminderId) {
+            // Implement your logic
+            }
+        </script>
 
-</div>
+    </body>
+
+</html>

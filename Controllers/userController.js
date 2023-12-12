@@ -38,4 +38,9 @@ function showDashboard (req, res) {
   res.sendFile(dashboardPath);
 }
 
-module.exports = { index, showLogin, create, showDashboard };
+function showConnexion (req, res) {
+  const connexionPath = path.join(__dirname, '..', 'Templates', 'Users', 'connexion.hbs');
+  res.sendFile(connexionPath);
+}
+
+module.exports = { index, showLogin, create, showDashboard, showConnexion };
