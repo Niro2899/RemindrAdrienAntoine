@@ -6,6 +6,10 @@ const port = 3010;
 
 app.use(express.static('static'));
 
+//Init body-parser
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+
 //Init routers
 const fileRtrUsers = require('./Routers/userRouter');
 app.use('/users', fileRtrUsers.rtrUsers);

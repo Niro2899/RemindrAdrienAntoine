@@ -14,6 +14,5 @@ model users {
   pseudoUser       String   @db.VarChar(50)
   mailUser         String   @db.VarChar(50)
   passwdUser       String   @db.VarChar(50)
-  idGroup          Int
   CreationDateUser DateTime @default(now()) @db.Timestamp(0)
 }
