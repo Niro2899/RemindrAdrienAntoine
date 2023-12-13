@@ -33,14 +33,5 @@ async function create (req, res) {
   
 }
 
-function showDashboard (req, res) {
-  const dashboardPath = path.join(__dirname, '..', 'Templates', 'Users', 'dashboardUser.hbs');
-  res.sendFile(dashboardPath);
-}
 
-function showConnexion (req, res) {
-  const connexionPath = path.join(__dirname, '..', 'Templates', 'Users', 'connexion.hbs');
-  res.sendFile(connexionPath);
-}
-
-module.exports = { index, showLogin, create, showDashboard, showConnexion };
+module.exports = { index, showLogin, create};
