@@ -5,6 +5,7 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 const path = require('path');
+const bcrypt = require('bcrypt');
 
 async function showIndex (req, res) {
   res.render('User/index', req.viewData);
@@ -16,9 +17,10 @@ function showSignIn(req, res) {
 
 function showSignUp(req, res) {
   if (req.query.logout)
-  {
     req.viewData.messages.notification = "Vous êtes déconnecté."
-  }
+  else if (req.query.wrongCredentials)
+    req.viewData.messages.error = "Mot de passe ou login incorrect."
+
 
   res.render('User/signUp', req.viewData);
 }
@@ -45,7 +47,8 @@ async function showDashboard(req, res) {
         name: true,
         date: true,
         description: true,
-        idGroupe: true
+        idGroupe: true,
+        colorHex: true
     },
     orderBy: {
         date: 'desc'
@@ -58,12 +61,16 @@ async function showDashboard(req, res) {
 
 async function create (req, res) {
 
+  const hashedPassword = await bcrypt.hash(req.body.password, 10)
+
+  console.log(hashedPassword);
+
   const newUser = await prisma.users.create({
     data: {
       nameUser : req.body.name,
       pseudoUser : req.body.pseudo,
       mailUser : req.body.email,
-      passwdUser : req.body.password,
+      passwdUser : hashedPassword,
       firstnameUser : req.body.firstname,
     }
   });
@@ -81,25 +88,27 @@ async function login (req, res) {
   })
   if (!getUser)
   {
-    res.send('Login incorrect');
+    res.redirect(req.baseUrl + "/login?wrongCredentials=true");
     return;
   }
+  var userInfos = {};
   //On check si l'utilsateur existe et que 
   //le mot de passe est correct
-  if (getUser.passwdUser == req.body.password)
+  var bVerifPasswd = await bcrypt.compare(req.body.password, getUser.passwdUser);
+  if (bVerifPasswd)
   {
-    var userInfos = {
-    // store user information in session
-    idUser: getUser.idUser,
-    nameUser: getUser.nameUser,
-    firstnameUser: getUser.firstnameUser,
-    pseudoUser: getUser.pseudoUser,
-    mailUser: getUser.mailUser
-    }
+      userInfos = {
+      idUser: getUser.idUser,
+      nameUser: getUser.nameUser,
+      firstnameUser: getUser.firstnameUser,
+      pseudoUser: getUser.pseudoUser,
+      mailUser: getUser.mailUser 
+      };
   }
-  else 
+
+  if (!userInfos.idUser) 
   {
-    res.send('Mot de passe incorrect');
+    res.redirect(req.baseUrl + "/login?wrongCredentials=true")
     return;
   }
 
@@ -108,7 +117,6 @@ async function login (req, res) {
     { 
       res.send(err);
       return;
-      //next(err)
     }
     req.session.user = userInfos;
     // save the session before redirection to ensure page

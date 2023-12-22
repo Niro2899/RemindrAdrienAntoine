@@ -26,6 +26,8 @@ root
 |
 ->index.js
 |
+-> views
+|
 -> <Fichiers node.js>
 ```
 
@@ -88,7 +90,17 @@ et les routeurs:
 
 (le groupesRouter est utilisé comme sous-routeur de userRouter)
 
+### views
+
+Les vues utilisent handlebars pour afficher des pages web.
+
+:warning: Critique:
+* Les liens sur les vues renvoient vers des pages écrites en dur (ex: /users/groups/manage). Cela crée une dépendance aux routes.
+
+
 ## Conclusion
 
 Je pense que ce projet a permis de nous faire la main avec Express.
 Il y a cependant des choses à régler dans ce livrable (gestion de la BDD, sécurité, single responsability...).
+Il manque évidement des fonctionnalités basiques comme faire en sorte que les utilisateurs ne soient pas obligés de rejoindre un groupe quand ils sont invités, ou alors les fonctionnalités quitter le groupe/virer un utilisateur du groupe...
+Mais nous pensons que nous serions capables d'implémenter ceci.

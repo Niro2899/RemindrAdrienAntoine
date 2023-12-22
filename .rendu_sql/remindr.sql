@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 22, 2023 at 01:07 AM
+-- Generation Time: Dec 22, 2023 at 03:19 PM
 -- Server version: 8.0.35
 -- PHP Version: 8.2.13
 
@@ -82,7 +82,9 @@ INSERT INTO `appartenir` (`idAppartenir`, `idUser`, `idGroupe`) VALUES
 (25, 7, 11),
 (26, 6, 11),
 (27, 5, 11),
-(28, 6, 12);
+(28, 6, 12),
+(29, 10, 13),
+(30, 6, 13);
 
 -- --------------------------------------------------------
 
@@ -109,7 +111,8 @@ INSERT INTO `groupes` (`idGroupe`, `nameGroupe`, `descriptionGroupe`, `idCreator
 (9, 'Antoine Team', 'the cure', 6),
 (10, 'azd', 'azdzadzda', 7),
 (11, 'The Cure', 'Le groupe', 7),
-(12, 'azd', 'azdzad', 6);
+(12, 'azd', 'azdzad', 6),
+(13, 'Gnome Land', 'Le pays des gnomes hihi', 10);
 
 --
 -- Triggers `groupes`
@@ -132,6 +135,7 @@ CREATE TABLE `reminders` (
   `date` timestamp NOT NULL,
   `name` varchar(200) NOT NULL,
   `description` text NOT NULL,
+  `colorHex` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '#ffffff',
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `createdByUser` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -140,10 +144,12 @@ CREATE TABLE `reminders` (
 -- Dumping data for table `reminders`
 --
 
-INSERT INTO `reminders` (`idReminder`, `idGroupe`, `date`, `name`, `description`, `createdAt`, `createdByUser`) VALUES
-(1, 1, '2023-12-19 16:08:44', 'Retirer les pates', 'Si on le fait pas ca risquerait de mal se passer je pense enfin apres seulement mon avis evidement sinon comment ca va vous ?', '2023-12-19 16:08:44', 6),
-(2, 1, '2023-12-19 17:29:12', 'Racheter une maison', 'Racheter une maison car on a pas suivi le dernier rappel', '2023-12-19 16:29:12', 6),
-(9, 9, '2000-11-08 19:00:00', 'azd', 'azddazdazdzazadazdzadadza\r\nazdzad\r\nzad', '2023-12-21 20:33:17', 6);
+INSERT INTO `reminders` (`idReminder`, `idGroupe`, `date`, `name`, `description`, `colorHex`, `createdAt`, `createdByUser`) VALUES
+(1, 1, '2023-12-19 16:08:44', 'Retirer les pates', 'Si on le fait pas ca risquerait de mal se passer je pense enfin apres seulement mon avis evidement sinon comment ca va vous ?', '', '2023-12-19 16:08:44', 6),
+(2, 1, '2023-12-19 17:29:12', 'Racheter une maison', 'Racheter une maison car on a pas suivi le dernier rappel', '', '2023-12-19 16:29:12', 6),
+(9, 9, '2000-11-08 19:00:00', 'azd', 'azddazdazdzazadazdzadadza\r\nazdzad\r\nzad', '', '2023-12-21 20:33:17', 6),
+(13, 13, '2004-11-09 16:30:00', 'Fête des gnomes !!!!!!', 'Tout le monde est convié hihi venez c\'est la fête....', '#985252', '2023-12-22 13:47:43', 10),
+(14, 13, '2005-11-09 03:55:00', 'azdzad', 'azdazd', '#4b89ec', '2023-12-22 14:17:43', 10);
 
 -- --------------------------------------------------------
 
@@ -157,7 +163,7 @@ CREATE TABLE `users` (
   `firstnameUser` varchar(50) NOT NULL,
   `pseudoUser` varchar(50) NOT NULL,
   `mailUser` varchar(50) NOT NULL,
-  `passwdUser` varchar(50) NOT NULL,
+  `passwdUser` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `CreationDateUser` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -172,7 +178,8 @@ INSERT INTO `users` (`idUser`, `nameUser`, `firstnameUser`, `pseudoUser`, `mailU
 (4, 'Chabanel', 'Antoine', 'azd', 'antoinebaptistemozart2@gmail.com', 'azddzad', '2023-12-12 10:00:53'),
 (5, 'Adrien', 'Wyrwal', 'Recock', 'adrien@adrien.fr', 'adrien', '2023-12-15 08:03:32'),
 (6, 'Le Chab', 'Antoine', 'Niro2899', 'antoine.chabanel42@gmail.com', 'antoine42', '2023-12-19 08:50:27'),
-(7, 'Smith', 'Robert', 'bobarsmith', 'robert@thecure.fr', 'bobarn', '2023-12-21 20:54:32');
+(7, 'Smith', 'Robert', 'bobarsmith', 'robert@thecure.fr', 'bobarn', '2023-12-21 20:54:32'),
+(10, 'Fugo', 'Gaveyrial', 'hugnome', 'hugnome@gnomeland.net', '$2b$10$GTe.zEwxfBjanj64AwKNGeBg0j1kCKBl0nz4C82SQ73wBhQQU81sS', '2023-12-22 13:10:23');
 
 --
 -- Indexes for dumped tables
@@ -215,25 +222,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appartenir`
 --
 ALTER TABLE `appartenir`
-  MODIFY `idAppartenir` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `idAppartenir` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `groupes`
 --
 ALTER TABLE `groupes`
-  MODIFY `idGroupe` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idGroupe` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `reminders`
 --
 ALTER TABLE `reminders`
-  MODIFY `idReminder` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idReminder` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `idUser` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idUser` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

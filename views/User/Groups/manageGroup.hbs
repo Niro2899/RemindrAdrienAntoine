@@ -1,3 +1,9 @@
+<style>
+    .tr-color-inherit td {
+        background-color: inherit;
+    }
+</style>
+
 <div class="container-fluid p-4">
     <h2>Groupe {{Infos.selectedGroupe.nameGroupe}}</h2>
     <p class="blockquote">Vous pouvez ici gérer le groupe.</p>
@@ -29,7 +35,7 @@
                 </thead>
                 <tbody>
                     {{#each Infos.reminders}}
-                        <tr>
+                        <tr class="tr-color-inherit" style="background-color: {{this.colorHex}}">
                             <td>{{this.name}}</td>
                             <td>{{this.description}}</td>
                             <td>{{this.date}}</td>

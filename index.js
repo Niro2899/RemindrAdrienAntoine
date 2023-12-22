@@ -27,7 +27,7 @@ app.set('views', path.join(__dirname, 'views'));
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
-//Init middleware session + flashMessages
+//Init middleware session
 app.use(cookieParser('keyboard cat'));
 app.use(session({
   secret: 'vkv6haXHpZZerI9srT1d',
@@ -49,21 +49,6 @@ const fileRtrMain = require('./Routers/mainRouter');
 app.use('/', fileRtrMain.rtrMain);
 const fileRtrUsers = require('./Routers/userRouter');
 app.use('/users', fileRtrUsers.rtrUsers);
-
-
-// //a bouger:
-// app.get('/dashboard', (req, res) => {
-//   res.render('dashboardUser');
-// })
-
-// app.get('/index', (req, res) => {
-//   res.render('index');
-// })
-
-// app.get('/connexion', (req, res) => {
-//   res.render('connexion');
-// })
-// //
 
 
 // ----------------------------------------

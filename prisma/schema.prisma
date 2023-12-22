@@ -36,6 +36,7 @@ model reminders {
   date          DateTime @db.Timestamp(0)
   name          String   @db.VarChar(200)
   description   String   @db.Text
+  colorHex      String   @default("#ffffff") @db.VarChar(20)
   createdAt     DateTime @default(now()) @db.Timestamp(0)
   createdByUser Int
   users         users    @relation(fields: [createdByUser], references: [idUser], onDelete: NoAction, onUpdate: NoAction, map: "FK_createdByUserReminders")
@@ -51,7 +52,7 @@ model users {
   firstnameUser    String       @db.VarChar(50)
   pseudoUser       String       @db.VarChar(50)
   mailUser         String       @db.VarChar(50)
-  passwdUser       String       @db.VarChar(50)
+  passwdUser       String       @db.VarChar(400)
   CreationDateUser DateTime     @default(now()) @db.Timestamp(0)
   appartenir       appartenir[]
   groupes          groupes[]

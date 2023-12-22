@@ -157,7 +157,8 @@ async function showManageGroup(req, res) {
                 name: true,
                 date: true,
                 description: true,
-                idGroupe: true
+                idGroupe: true,
+                colorHex: true
             }
         });
     }
@@ -245,7 +246,8 @@ async function createReminder(req, res) {
             description: req.body.descriptionReminder,
             date: dateReminder,
             createdByUser: req.session.user.idUser,
-            idGroupe: parseInt(req.params.idGroupe)
+            idGroupe: parseInt(req.params.idGroupe),
+            colorHex: req.body.colorReminder
         }
     })
     .then((result) => {
@@ -266,7 +268,8 @@ async function showEditReminder(req, res) {
                 name: true,
                 date: true,
                 description: true,
-                idGroupe: true
+                idGroupe: true,
+                colorHex: true
             }
         });
     }
@@ -300,7 +303,8 @@ function editReminder(req, res) {
             description: req.body.descriptionReminder,
             //la date est en format ISO par défaut ce qui est compatible avec le type Date de MySQL !!
             //donc on a juste à la faire passer dans le constructeur Date pour que ça marche.
-            date: new Date(req.body.dateReminder), 
+            date: new Date(req.body.dateReminder),
+            colorHex: req.body.colorReminder
         }
     })
     .then((result) => {

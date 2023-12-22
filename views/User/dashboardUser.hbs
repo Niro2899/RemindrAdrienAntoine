@@ -1,9 +1,15 @@
+<style>
+    .color-inherit h5, .color-inherit p {
+        background-color: inherit;
+    }
+</style>
+
 <div class="container">
     <h1>Mes remindrs</h1>
     <p class="blockquote">Vous pouvez les gérer depuis <a href="/users/groups" >l'interface des groupes.</a></p>
     {{#each Infos.reminders}}
-        <div class="card mb-2">
-            <div class="card-body">
+        <div class="card mb-2 ">
+            <div style="background-color: {{this.colorHex}}" class="card-body color-inherit">
                 <h5 class="card-title">{{this.name}}</h5>
                 <p class="card-text">{{this.description}}</p>
                 <p class="card-text">Date: {{this.date}}</p>
