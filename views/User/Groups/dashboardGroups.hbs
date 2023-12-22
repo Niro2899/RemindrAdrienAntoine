@@ -1,0 +1,26 @@
+<div class="container-fluid p-4">
+    <h1>Vos groupes</h1>
+    <p class="blockquote">Vous pouvez ici voir les groupes auxquels vous appartenez.</p>
+    <table class="table mx-auto">
+    <thead>
+        <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Nombre de membres</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each Infos.userGroupes}}
+        <tr>
+            <!-- "https://www.flaticon.com/fr/icones-gratuites/ajouter-une-image" Ajouter une image icônes créées par Lizel Arina - Flaticon-->
+            <th scope="row"> <img src="/Media/Images/Icons/ajouter-une-image.webp" alt="Logo" width="30" height="30" class="d-inline-block align-text-top"> {{this.idGroupe}}</p>
+            <td><a href="/users/groups/manage/{{this.idGroupe}}">{{this.nameGroupe}}</a></td>
+            <td>{{this.memberCount}}</td>
+            <!--td>{{this.reminderCount}}</td-->
+        </tr>
+        {{/each}}
+    </tbody>
+    </table>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <a href="/users/groups/create" class="btn btn-primary" type="button">Nouveau groupe</a>
+</div>

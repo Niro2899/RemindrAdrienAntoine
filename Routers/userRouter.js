@@ -4,6 +4,10 @@ const fileAuthMiddlewares = require('../Middlewares/Authentification/authMiddlew
 const rtrUsers = express.Router();
 const userController = require('../Controllers/userController');
 
+//Sous-routeur groupes
+const fileRtrGroupes = require('../Routers/groupesRouter');
+rtrUsers.use('/groups', fileRtrGroupes.rtrGroupes);
+
 rtrUsers.get('/', fileAuthMiddlewares.NecessitateAuth, userController.showIndex);
 
 rtrUsers.get('/create', userController.showSignIn);

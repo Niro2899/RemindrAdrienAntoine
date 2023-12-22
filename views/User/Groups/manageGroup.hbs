@@ -1,0 +1,65 @@
+<div class="container-fluid p-4">
+    <h2>Groupe {{Infos.selectedGroupe.nameGroupe}}</h2>
+    <p class="blockquote">Vous pouvez ici gérer le groupe.</p>
+
+    <div class="d-grid gap-2 col-12"></div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Informations du groupe</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nombres de membres: {{Infos.selectedGroupe.memberCount}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-grid gap-2 col-12">
+            <h3>Rappels</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date d'échéance</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each Infos.reminders}}
+                        <tr>
+                            <td>{{this.name}}</td>
+                            <td>{{this.description}}</td>
+                            <td>{{this.date}}</td>
+                            <td>
+                                <a class="btn btn-primary" href="/users/groups/manage/{{this.idGroupe}}/reminders/{{this.idReminder}}/edit">
+                                Éditer</a>
+                                <a class="btn btn-danger" href="/users/groups/manage/{{this.idGroupe}}/reminders/{{this.idReminder}}/delete">
+                                Supprimer</a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div> 
+            <button class="btn btn-primary" type="submit" data-bs-toggle="dropdown" aria-expanded="false">Ajouter un membre</button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {{#each Infos.globalMembers}}
+                    <form action="/users/groups/manage/{{../Infos.selectedGroupe.idGroupe}}/invite/{{this.idUser}}" method="POST">
+                        <li>
+                            <button type="submit" class="dropdown-item">{{this.pseudoUser}}</button>
+                        </li>
+                    </form>
+                {{/each}}
+            </ul>
+            <a class="btn btn-primary" href="/users/groups/manage/{{Infos.selectedGroupe.idGroupe}}/reminders/create">Créer un rappel</a>
+        </div>   
+    </div>
+
+
+    
+        
+        <!--a href="/users/groups/leave/{{Infos.selectedGroupe}}" class="btn btn-danger" type="button">Quitter le groupe</a-->
+</div>

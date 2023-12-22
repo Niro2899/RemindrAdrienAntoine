@@ -23,10 +23,37 @@ function showSignUp(req, res) {
   res.render('User/signUp', req.viewData);
 }
 
-function showDashboard(req, res) {
-  var vd = req.viewData;
-  console.log(vd.sessionInfos.user.pseudoUser);
-  res.render('User/fake_dashboard', req.viewData);
+async function showDashboard(req, res) {
+  console.log(req.viewData.sessionInfos.user.pseudoUser);
+
+  //On récupère tout les rappels de l'utilisateur connecté
+  //Il faut faire une requête qui récupère les rappels des groupes auxquels l'utilisateur appartient
+  req.viewData.Infos.reminders = await prisma.reminders.findMany({
+    where: {
+      //Groupes auxquels l'utilisateur appartient
+        groupes: {
+          //Users correspondants à l'utilisateur connecté
+            appartenir: {
+                some: {
+                    idUser: req.viewData.sessionInfos.user.idUser
+                }
+            }
+        }
+    },
+    select: {
+        idReminder: true,
+        name: true,
+        date: true,
+        description: true,
+        idGroupe: true
+    },
+    orderBy: {
+        date: 'desc'
+    }
+  });
+  
+
+  res.render('User/dashboardUser', req.viewData);
 }
 
 async function create (req, res) {

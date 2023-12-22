@@ -7,6 +7,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model appartenir {
+  idAppartenir Int     @id @default(autoincrement())
+  idUser       Int
+  idGroupe     Int
+  groupes      groupes @relation(fields: [idGroupe], references: [idGroupe], onDelete: NoAction, onUpdate: NoAction, map: "FK_idGroupeAppartenir")
+  users        users   @relation(fields: [idUser], references: [idUser], onDelete: NoAction, onUpdate: NoAction, map: "FK_idUserAppartenir")
+
+  @@index([idGroupe], map: "FK_idGroupeAppartenir")
+  @@index([idUser], map: "FK_idUserAppartenir")
+}
+
+model groupes {
+  idGroupe          Int          @id @default(autoincrement())
+  nameGroupe        String       @db.VarChar(50)
+  descriptionGroupe String       @db.Text
+  idCreator         Int
+  appartenir        appartenir[]
+  users             users        @relation(fields: [idCreator], references: [idUser], onDelete: NoAction, onUpdate: NoAction, map: "FK_idCreator")
+  reminders         reminders[]
+
+  @@index([idCreator], map: "FK_idCreator")
+}
+
+model reminders {
+  idReminder    Int      @id @default(autoincrement())
+  idGroupe      Int
+  date          DateTime @db.Timestamp(0)
+  name          String   @db.VarChar(200)
+  description   String   @db.Text
+  createdAt     DateTime @default(now()) @db.Timestamp(0)
+  createdByUser Int
+  users         users    @relation(fields: [createdByUser], references: [idUser], onDelete: NoAction, onUpdate: NoAction, map: "FK_createdByUserReminders")
+  groupes       groupes  @relation(fields: [idGroupe], references: [idGroupe], onDelete: NoAction, onUpdate: NoAction, map: "FK_idGroupeReminders")
+
+  @@index([createdByUser], map: "FK_createdByUserReminders")
+  @@index([idGroupe], map: "FK_idGroupeReminders")
+}
+
 model users {
   idUser           Int          @id @default(autoincrement())
   nameUser         String       @db.VarChar(50)
@@ -15,28 +53,7 @@ model users {
   mailUser         String       @db.VarChar(50)
   passwdUser       String       @db.VarChar(50)
   CreationDateUser DateTime     @default(now()) @db.Timestamp(0)
-  appartenir       appartenir[] @ignore
+  appartenir       appartenir[]
   groupes          groupes[]
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model appartenir {
-  idUser   Int
-  idGroupe Int
-  groupes  groupes @relation(fields: [idGroupe], references: [idGroupe], onDelete: NoAction, onUpdate: NoAction, map: "FK_idgroupe")
-  users    users   @relation(fields: [idUser], references: [idUser], onDelete: NoAction, onUpdate: NoAction, map: "FK_iduser")
-
-  @@index([idGroupe], map: "FK_idgroupe")
-  @@index([idUser], map: "FK_iduser")
-  @@ignore
-}
-
-model groupes {
-  idGroupe   Int          @id
-  nameGroupe String       @db.VarChar(50)
-  idCreator  Int
-  appartenir appartenir[] @ignore
-  users      users        @relation(fields: [idCreator], references: [idUser], onDelete: NoAction, onUpdate: NoAction, map: "FK_idCreator")
-
-  @@index([idCreator], map: "FK_idCreator")
+  reminders        reminders[]
 }

@@ -1,37 +1,13 @@
-<h1>Test</h1>
-        <div>
-            <h2>Rappels :</h2>
-
-            <!-- Loop through reminders in chronological order -->
-            {{#each reminders}}
-            <div class="{{#if isPastReminder}}past-reminder{{/if}}">
-                <p>{{reminderText}}</p>
-                <button onclick="">Modifier</button>
-                <button onclick="deleteReminder({{reminderId}})">Supprimer</button>
+<div class="container">
+    <h1>Mes remindrs</h1>
+    <p class="blockquote">Vous pouvez les gérer depuis <a href="/users/groups" >l'interface des groupes.</a></p>
+    {{#each Infos.reminders}}
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5 class="card-title">{{this.name}}</h5>
+                <p class="card-text">{{this.description}}</p>
+                <p class="card-text">Date: {{this.date}}</p>
             </div>
-            {{/each}}
         </div>
-
-        <div>
-            <h2>Vos groupes :</h2>
-
-            <!-- Loop through user groups -->
-            {{#each userGroups}}
-            <div>
-                <p>{{groupName}}</p>
-            </div>
-            {{/each}}
-        </div>
-
-        <script>
-            // Add your JavaScript functions for editing and deleting reminders here
-            function editReminder(reminderId) {
-            // Implement your logic
-            }
-
-            function deleteReminder(reminderId) {
-            // Implement your logic
-            }
-        </script>
-
-
+    {{/each}}
+</div>
