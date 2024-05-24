@@ -1,12 +1,5 @@
 # Remindr
 
-* Antoine Chabanel
-* Adrien Wyrwal
-* Enzo Gonzalez
-
-## Introduction
-* Pour faire fonctionner le projet, il faut d'abord importer la base de données dans /.rendu_sql/ (expliqué plus bas)
-
 ## Architecture
 ```
 root
@@ -35,7 +28,7 @@ root
 Routeurs implémentés:
 * Groupes
 * User
-* (main) (pas utile car nous n'avons pas fait d'accueil)
+* main
 
 * Les routeurs permettent d'exécuter les fonctions du contrôleur en fonction des actions de l'utilisateur sur les différentes routes.
 * Il permet aussi de choisir quels Middlewares doivent être éxécutés.
@@ -64,7 +57,7 @@ initData (utilisé par toute l'application) permet d'initialiser un objet conten
 Cela évite de faire passer des objets différents à chaque vue.
 
 :warning: Critique:
-* Pas une bonne pratique de programmation, il aurait plutôt fallu séparer cela en plusieurs fonctions car sinon l'objet va devenir gros
+* Il aurait plutôt fallu séparer cela en plusieurs fonctions car sinon l'objet va devenir gros
 * En plus, il est traîné à chaque requêtes de l'utilisateur !
 
 ### Prisma
@@ -72,8 +65,9 @@ Cela évite de faire passer des objets différents à chaque vue.
 * Nécéssite d'avoir des variables d'environnement définies pour préciser le protocole de connexion à la base de données (mySql utilisé)
 
 :warning: Critiques: 
-* Importé depuis la base de données SQL et pas l'inverse
-* Dépend de procédures stockées distantes
+* Importé depuis la base de données SQL et pas l'inverse. Prisma devrait tout gérer.
+* Dépend encore de procédures stockées distantes sur MySQL
+* Mais j'ai compris le but d'utiliser un ORM !
 
 ### static
 Contient les fichiers livrés comme statiques (images par exemple)
@@ -100,7 +94,7 @@ Les vues utilisent handlebars pour afficher des pages web.
 
 ## Conclusion
 
-Je pense que ce projet a permis de nous faire la main avec Express.
+Ce projet était un bon support pour apprendre Node.JS/Express et l'utilisation du MVC.
 Il y a cependant des choses à régler dans ce livrable (gestion de la BDD, sécurité, single responsability...).
-Il manque évidement des fonctionnalités basiques comme faire en sorte que les utilisateurs ne soient pas obligés de rejoindre un groupe quand ils sont invités, ou alors les fonctionnalités quitter le groupe/virer un utilisateur du groupe...
-Mais nous pensons que nous serions capables d'implémenter ceci.
+Il manque quelques fonctionnalités comme faire en sorte que les utilisateurs ne soient pas obligés de rejoindre un groupe quand ils sont invités, ou alors les fonctionnalités quitter le groupe/exclure un utilisateur du groupe.
+Nous pensons que nous serions capables d'implémenter ceci.
